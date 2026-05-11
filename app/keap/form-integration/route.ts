@@ -27,10 +27,10 @@ function technicalError(hint: string): never {
 export async function POST(request: Request) {
   const formData = await request.formData();
 
-  const firstName = (formData.get('inf_field_FirstName') as string | null)?.trim() ?? '';
-  const email = (formData.get('inf_field_Email') as string | null)?.trim() ?? '';
-  const rawPhone = (formData.get('inf_field_Phone1') as string | null) ?? '';
-  const urlSucesso = (formData.get('url_sucesso') as string | null)?.trim() ?? '';
+  const firstName = (formData.get('name') as string | null)?.trim() ?? '';
+  const email = (formData.get('email') as string | null)?.trim() ?? '';
+  const rawPhone = (formData.get('phone') as string | null) ?? '';
+  const urlSucesso = (formData.get('success_url') as string | null)?.trim() ?? '';
   const callname = (formData.get('callname') as string | null)?.trim() ?? '';
   const integration = (formData.get('integration') as string | null)?.trim() ?? '';
 
@@ -52,8 +52,8 @@ export async function POST(request: Request) {
 
   const rawCustomFields: { name: string; value: string }[] = [];
   for (const [key, value] of formData.entries()) {
-    if (key.startsWith('inf_custom_') && typeof value === 'string' && value.trim() !== '') {
-      rawCustomFields.push({ name: key.slice('inf_custom_'.length), value: value.trim() });
+    if (key.startsWith('customField_') && typeof value === 'string' && value.trim() !== '') {
+      rawCustomFields.push({ name: key.slice('customField_'.length), value: value.trim() });
     }
   }
 

@@ -44,18 +44,18 @@ Content-Type: application/x-www-form-urlencoded
 
 | Campo                 | Descrição                                                        |
 |-----------------------|------------------------------------------------------------------|
-| `inf_field_FirstName` | Nome completo do lead                                            |
-| `inf_field_Email`     | E-mail do lead                                                   |
-| `inf_field_Phone1`    | Telefone (caracteres não numéricos são removidos automaticamente)|
-| `url_sucesso`         | URL de redirecionamento após sucesso (`http://` ou `https://`)   |
+| `name` | Nome completo do lead                                            |
+| `email`     | E-mail do lead                                                   |
+| `phone`    | Telefone (caracteres não numéricos são removidos automaticamente)|
+| `success_url`         | URL de redirecionamento após sucesso (`http://` ou `https://`)   |
 | `callname`            | Call name do goal de automação a ser disparado                   |
 | `integration`         | Nome da integração, enviado no payload do achieve goal           |
 
 ### Campos customizados (opcionais)
 
-Qualquer campo prefixado com `inf_custom_` é mapeado como campo customizado do contato. O prefixo é removido antes do envio à API.
+Qualquer campo prefixado com `customField_` é mapeado como campo customizado do contato. O prefixo é removido antes do envio à API.
 
-**Exemplo:** `inf_custom_MTEMS6UTMSource` → campo `MTEMS6UTMSource` no Keap.
+**Exemplo:** `customField_MTEMS6UTMSource` → campo `MTEMS6UTMSource` no Keap.
 
 ## Fluxo de processamento
 
@@ -90,7 +90,7 @@ POST /keap/form-integration
            │ erro ──────────► /error/technical
            │ ok
            ▼
-    Redirect → url_sucesso
+    Redirect → success_url
 ```
 
 ## Configuração
@@ -148,9 +148,9 @@ O arquivo [`docs/exemplo-formulario.html`](docs/exemplo-formulario.html) é um t
 | `https://SEU-DOMINIO/keap/form-integration` | atributo `action` do `<form>` |
 | `NOME-DO-GOAL` | `value` do campo oculto `callname` |
 | `NOME-DA-INTEGRACAO` | `value` do campo oculto `integration` |
-| `https://seusite.com.br/obrigado` | `value` do campo oculto `url_sucesso` |
+| `https://seusite.com.br/obrigado` | `value` do campo oculto `success_url` |
 
-Os campos visíveis (`inf_field_FirstName`, `inf_field_Email`, `inf_field_Phone1`) e os campos customizados de UTM (`inf_custom_*`) já estão pré-configurados. O script inline captura automaticamente os parâmetros UTM da URL e os injeta nos campos ocultos antes do envio.
+Os campos visíveis (`name`, `email`, `phone`) e os campos customizados de UTM (`customField_*`) já estão pré-configurados. O script inline captura automaticamente os parâmetros UTM da URL e os injeta nos campos ocultos antes do envio.
 
 ## Referências
 

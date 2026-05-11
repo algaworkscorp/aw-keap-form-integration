@@ -11,10 +11,10 @@
     INSTRUÇÕES DE USO
     ═════════════════
     1. Substitua a action do <form> pela URL do endpoint de integração.
-    2. Preencha os campos ocultos callname, integration e url_sucesso
+    2. Preencha os campos ocultos callname, integration e success_url
        com os valores corretos para esta landing page.
     3. Personalize os campos visíveis (labels, placeholders, estilos) conforme o layout.
-    4. Campos customizados (inf_custom_*) são opcionais — adicione ou remova conforme necessário.
+    4. Campos customizados (customField_*) são opcionais — adicione ou remova conforme necessário.
   -->
 
   <form
@@ -34,7 +34,7 @@
     <input type="hidden" name="integration" value="NOME-DA-INTEGRACAO" />
 
     <!-- URL para onde o lead é redirecionado após o cadastro -->
-    <input type="hidden" name="url_sucesso" value="https://seusite.com.br/obrigado" />
+    <input type="hidden" name="success_url" value="https://seusite.com.br/obrigado" />
 
 
     <!-- ═══════════════════════════════════════════
@@ -45,7 +45,7 @@
     <input
       type="text"
       id="nome"
-      name="inf_field_FirstName"
+      name="name"
       placeholder="Seu primeiro nome *"
       required
     />
@@ -54,7 +54,7 @@
     <input
       type="email"
       id="email"
-      name="inf_field_Email"
+      name="email"
       placeholder="Seu melhor e-mail *"
       required
     />
@@ -63,7 +63,7 @@
     <input
       type="tel"
       id="telefone"
-      name="inf_field_Phone1"
+      name="phone"
       placeholder="Seu telefone com DDD *"
       required
     />
@@ -73,15 +73,15 @@
          CAMPOS CUSTOMIZADOS (opcionais)
          Adicione um <input type="hidden"> para cada
          campo customizado do Keap que deseja preencher.
-         O prefixo inf_custom_ é obrigatório.
+         O prefixo customField_ é obrigatório.
          ═══════════════════════════════════════════ -->
 
     <!-- Exemplos de UTM — remova se não precisar -->
-    <input type="hidden" name="inf_custom_MTEMS6UTMSource"   id="utm_source"   />
-    <input type="hidden" name="inf_custom_MTEMS6UTMMedium"   id="utm_medium"   />
-    <input type="hidden" name="inf_custom_MTEMS6UTMCampaign" id="utm_campaign" />
-    <input type="hidden" name="inf_custom_MTEMS6UTMTerm"     id="utm_term"     />
-    <input type="hidden" name="inf_custom_MTEMS6UTMContent"  id="utm_content"  />
+    <input type="hidden" name="customField_MTEMS6UTMSource"   id="utm_source"   />
+    <input type="hidden" name="customField_MTEMS6UTMMedium"   id="utm_medium"   />
+    <input type="hidden" name="customField_MTEMS6UTMCampaign" id="utm_campaign" />
+    <input type="hidden" name="customField_MTEMS6UTMTerm"     id="utm_term"     />
+    <input type="hidden" name="customField_MTEMS6UTMContent"  id="utm_content"  />
 
 
     <button type="submit">Quero participar</button>

@@ -9,7 +9,7 @@ function addRow(name = '', value = '') {
 
   row.innerHTML = `
     <div class="prefix-wrap">
-      <span class="prefix">inf_custom_</span>
+      <span class="prefix">customField_</span>
       <input class="name-input" type="text" placeholder="NomeDoCampo" value="${escAttr(name)}" />
     </div>
     <input class="value-input" type="text" placeholder="Valor" value="${escAttr(value)}" />
@@ -51,7 +51,7 @@ form.addEventListener('submit', (e) => {
 
     const hidden = document.createElement('input');
     hidden.type = 'hidden';
-    hidden.name = `inf_custom_${name}`;
+    hidden.name = `customField_${name}`;
     hidden.value = value;
     form.appendChild(hidden);
   });

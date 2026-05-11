@@ -21,26 +21,26 @@ Content-Type: application/x-www-form-urlencoded
 
 | Campo               | Descrição                                        |
 |---------------------|--------------------------------------------------|
-| `inf_field_FirstName` | Primeiro nome do lead                                      |
-| `inf_field_Email`     | E-mail do lead                                             |
-| `inf_field_Phone1`    | Telefone do lead                                           |
-| `url_sucesso`         | URL para redirecionar após processamento bem-sucedido      |
+| `name` | Primeiro nome do lead                                      |
+| `email`     | E-mail do lead                                             |
+| `phone`    | Telefone do lead                                           |
+| `success_url`         | URL para redirecionar após processamento bem-sucedido      |
 | `callname`            | Call name do goal de automação a ser disparado             |
 | `integration`         | Nome da integração, passado no payload do achieve goal     |
 
 ### Opcionais — Campos Customizados
 
-Qualquer campo prefixado com `inf_custom_` é tratado como campo customizado do contato no Infusionsoft. O prefixo `inf_custom_` é removido antes de enviar à API — somente a parte restante é usada como nome do campo.
+Qualquer campo prefixado com `customField_` é tratado como campo customizado do contato no Infusionsoft. O prefixo `customField_` é removido antes de enviar à API — somente a parte restante é usada como nome do campo.
 
 **Exemplos:**
 
 | Campo recebido no POST         | Nome do campo no Infusionsoft |
 |-------------------------------|-------------------------------|
-| `inf_custom_MTEMS6UTMSource`  | `MTEMS6UTMSource`             |
-| `inf_custom_MTEMS6UTMMedium`  | `MTEMS6UTMMedium`             |
-| `inf_custom_MTEMS6UTMCampaign`| `MTEMS6UTMCampaign`           |
-| `inf_custom_MTEMS6UTMTerm`    | `MTEMS6UTMTerm`               |
-| `inf_custom_MTEMS6UTMContent` | `MTEMS6UTMContent`            |
+| `customField_MTEMS6UTMSource`  | `MTEMS6UTMSource`             |
+| `customField_MTEMS6UTMMedium`  | `MTEMS6UTMMedium`             |
+| `customField_MTEMS6UTMCampaign`| `MTEMS6UTMCampaign`           |
+| `customField_MTEMS6UTMTerm`    | `MTEMS6UTMTerm`               |
+| `customField_MTEMS6UTMContent` | `MTEMS6UTMContent`            |
 
 ---
 
@@ -78,7 +78,7 @@ POST /keap/form-integration
              │ erro ──────────► Página de erro técnico (+ link voltar)
              │ ok
              ▼
-     Redirect → url_sucesso
+     Redirect → success_url
 ```
 
 ---
@@ -87,10 +87,10 @@ POST /keap/form-integration
 
 Validar antes de qualquer chamada de API:
 
-- `inf_field_FirstName`: não vazio
-- `inf_field_Email`: não vazio e formato de e-mail válido
-- `inf_field_Phone1`: não vazio; antes de usar, remover todos os caracteres que não sejam dígitos `0–9` (ex: `(11) 98765-4321` → `11987654321`)
-- `url_sucesso`: não vazio e URL válida (deve aceitar `http://` e `https://`)
+- `name`: não vazio
+- `email`: não vazio e formato de e-mail válido
+- `phone`: não vazio; antes de usar, remover todos os caracteres que não sejam dígitos `0–9` (ex: `(11) 98765-4321` → `11987654321`)
+- `success_url`: não vazio e URL válida (deve aceitar `http://` e `https://`)
 - `callname`: não vazio
 - `integration`: não vazio
 
@@ -98,14 +98,14 @@ Validar antes de qualquer chamada de API:
 
 ### Separação de nome e sobrenome
 
-Após validação, separar `inf_field_FirstName` em `given_name` e `family_name`:
+Após validação, separar `name` em `given_name` e `family_name`:
 
 - Se o valor contiver **apenas uma palavra**: usar como `given_name`; `family_name` não é enviado.
 - Se contiver **duas ou mais palavras**: a primeira palavra é o `given_name`; o restante (tudo após o primeiro espaço) é o `family_name`.
 
 **Exemplos:**
 
-| `inf_field_FirstName` recebido | `given_name` | `family_name`   |
+| `name` recebido | `given_name` | `family_name`   |
 |-------------------------------|--------------|-----------------|
 | `João`                        | `João`       | —               |
 | `João Silva`                  | `João`       | `Silva`         |
@@ -133,13 +133,13 @@ POST /rest/v2/contacts
 Payload:
 ```json
 {
-  "given_name": "<primeira palavra de inf_field_FirstName>",
-  "family_name": "<restante de inf_field_FirstName, se houver>",
+  "given_name": "<primeira palavra de name>",
+  "family_name": "<restante de name, se houver>",
   "email_addresses": [
-    { "email": "<inf_field_Email>", "field": "EMAIL1" }
+    { "email": "<email>", "field": "EMAIL1" }
   ],
   "phone_numbers": [
-    { "number": "<inf_field_Phone1>", "field": "PHONE1" }
+    { "number": "<phone>", "field": "PHONE1" }
   ],
   "custom_fields": [
     { "id": <id_numérico_do_campo>, "content": "<valor>" }
@@ -250,4 +250,4 @@ app/
 - O endpoint deve funcionar como **Route Handler** do Next.js (`app/keap/form-integration/route.ts`), exportando uma função `POST`.
 - O body do POST vem como `application/x-www-form-urlencoded`; usar `request.formData()` para ler os campos.
 - As páginas de erro podem ser renderizadas via `redirect` para rotas internas com parâmetros de query, ou via resposta HTML direta.
-- Não logar o valor de campos sensíveis (`inf_field_Email`, `inf_field_Phone1`) em produção.
+- Não logar o valor de campos sensíveis (`email`, `phone`) em produção.
