@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Teste — Integração Keap</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; max-width: 580px; margin: 40px auto; padding: 0 16px; }
+    h1 { font-size: 1.2rem; margin-bottom: 24px; }
+    label { display: block; margin-bottom: 4px; font-size: 0.85rem; color: #444; }
+    input[type="text"], input[type="email"] {
+      width: 100%; padding: 8px 10px; border: 1px solid #ccc;
+      border-radius: 4px; margin-bottom: 14px; font-size: 0.95rem;
+    }
+    fieldset { border: 1px solid #ddd; border-radius: 6px; padding: 12px 16px; margin-bottom: 20px; }
+    legend { font-size: 0.8rem; color: #888; padding: 0 4px; }
+    .hint { font-size: 0.75rem; color: #888; margin-top: -10px; margin-bottom: 14px; }
+
+    /* campos customizados */
+    #custom-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .custom-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; align-items: center; }
+    .custom-row .prefix-wrap { position: relative; }
+    .custom-row .prefix {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      font-size: 0.8rem; color: #888; pointer-events: none; white-space: nowrap;
+    }
+    .custom-row input.name-input {
+      padding-left: 90px; margin-bottom: 0; width: 100%;
+    }
+    .custom-row input.value-input { margin-bottom: 0; width: 100%; }
+    .remove-btn {
+      background: none; border: 1px solid #ccc; border-radius: 4px;
+      padding: 6px 10px; cursor: pointer; color: #888; font-size: 1rem; line-height: 1;
+    }
+    .remove-btn:hover { border-color: #e00; color: #e00; }
+    #add-custom {
+      background: none; border: 1px dashed #aaa; border-radius: 4px;
+      padding: 7px 14px; cursor: pointer; color: #555; font-size: 0.9rem; width: 100%;
+    }
+    #add-custom:hover { border-color: #0070f3; color: #0070f3; }
+
+    button[type="submit"] {
+      background: #0070f3; color: #fff; border: none; border-radius: 4px;
+      padding: 10px 24px; font-size: 1rem; cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #005ad1; }
+
+    .error-msg { color: #c00; font-size: 0.85rem; margin-bottom: 12px; display: none; }
+  </style>
+</head>
+<body>
+  <h1>Teste — POST /keap/form-integration</h1>
+
+  <form id="test-form" method="POST" action="http://localhost:3000/keap/form-integration"
+        enctype="application/x-www-form-urlencoded">
+
+    <fieldset>
+      <legend>Campos obrigatórios</legend>
+
+      <label>inf_field_FirstName</label>
+      <input type="text" name="inf_field_FirstName" value="João" />
+
+      <label>inf_field_Email</label>
+      <input type="email" name="inf_field_Email" value="teste@exemplo.com" />
+
+      <label>inf_field_Phone1</label>
+      <input type="text" name="inf_field_Phone1" value="(11) 98765-4321" />
+      <p class="hint">Caracteres não numéricos são removidos automaticamente.</p>
+
+      <label>url_sucesso</label>
+      <input type="text" name="url_sucesso" value="https://example.com/obrigado" />
+
+      <label>callname</label>
+      <input type="text" name="callname" value="meu-goal" />
+
+      <label>integration</label>
+      <input type="text" name="integration" value="site" />
+    </fieldset>
+
+    <fieldset>
+      <legend>Campos customizados (opcionais)</legend>
+      <div id="custom-fields"></div>
+      <p class="error-msg" id="custom-error">Todos os campos customizados devem ter um nome preenchido.</p>
+      <button type="button" id="add-custom">+ Adicionar campo customizado</button>
+    </fieldset>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script src="form.js"></script>
+</body>
+</html>
