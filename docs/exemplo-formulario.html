@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nome da Landing Page</title>
+</head>
+<body>
+
+  <!--
+    INSTRUÇÕES DE USO
+    ═════════════════
+    1. Substitua a action do <form> pela URL do endpoint de integração.
+    2. Preencha os campos ocultos callname, integration e url_sucesso
+       com os valores corretos para esta landing page.
+    3. Personalize os campos visíveis (labels, placeholders, estilos) conforme o layout.
+    4. Campos customizados (inf_custom_*) são opcionais — adicione ou remova conforme necessário.
+  -->
+
+  <form
+    method="POST"
+    action="https://SEU-DOMINIO/keap/form-integration"
+    enctype="application/x-www-form-urlencoded"
+  >
+
+    <!-- ═══════════════════════════════════════════
+         CAMPOS OCULTOS — edite os valores abaixo
+         ═══════════════════════════════════════════ -->
+
+    <!-- Goal de automação que será disparado no Keap -->
+    <input type="hidden" name="callname"    value="NOME-DO-GOAL" />
+
+    <!-- Nome desta integração (aparece no histórico do Keap) -->
+    <input type="hidden" name="integration" value="NOME-DA-INTEGRACAO" />
+
+    <!-- URL para onde o lead é redirecionado após o cadastro -->
+    <input type="hidden" name="url_sucesso" value="https://seusite.com.br/obrigado" />
+
+
+    <!-- ═══════════════════════════════════════════
+         CAMPOS VISÍVEIS — personalize o layout
+         ═══════════════════════════════════════════ -->
+
+    <label for="nome">Nome completo</label>
+    <input
+      type="text"
+      id="nome"
+      name="inf_field_FirstName"
+      placeholder="Seu nome completo"
+      required
+    />
+
+    <label for="email">E-mail</label>
+    <input
+      type="email"
+      id="email"
+      name="inf_field_Email"
+      placeholder="seu@email.com"
+      required
+    />
+
+    <label for="telefone">Telefone</label>
+    <input
+      type="tel"
+      id="telefone"
+      name="inf_field_Phone1"
+      placeholder="(11) 98765-4321"
+      required
+    />
+
+
+    <!-- ═══════════════════════════════════════════
+         CAMPOS CUSTOMIZADOS (opcionais)
+         Adicione um <input type="hidden"> para cada
+         campo customizado do Keap que deseja preencher.
+         O prefixo inf_custom_ é obrigatório.
+         ═══════════════════════════════════════════ -->
+
+    <!-- Exemplos de UTM — remova se não precisar -->
+    <input type="hidden" name="inf_custom_MTEMS6UTMSource"   id="utm_source"   />
+    <input type="hidden" name="inf_custom_MTEMS6UTMMedium"   id="utm_medium"   />
+    <input type="hidden" name="inf_custom_MTEMS6UTMCampaign" id="utm_campaign" />
+    <input type="hidden" name="inf_custom_MTEMS6UTMTerm"     id="utm_term"     />
+    <input type="hidden" name="inf_custom_MTEMS6UTMContent"  id="utm_content"  />
+
+
+    <button type="submit">Quero participar</button>
+
+  </form>
+
+  <!-- Captura os parâmetros UTM da URL e preenche os campos ocultos -->
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var map = {
+        utm_source:   'utm_source',
+        utm_medium:   'utm_medium',
+        utm_campaign: 'utm_campaign',
+        utm_term:     'utm_term',
+        utm_content:  'utm_content',
+      };
+      Object.keys(map).forEach(function (param) {
+        var el = document.getElementById(map[param]);
+        if (el && params.get(param)) el.value = params.get(param);
+      });
+    })();
+  </script>
+
+</body>
+</html>

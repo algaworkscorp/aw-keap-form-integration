@@ -139,6 +139,19 @@ npm start
 
 Ambas exibem um link "← Voltar" via `history.back()` e não expõem detalhes técnicos ao usuário. Os erros são logados server-side com timestamp e contexto suficiente para diagnóstico.
 
+## Exemplo de formulário para landing pages
+
+O arquivo [`docs/exemplo-formulario.html`](docs/exemplo-formulario.html) é um template pronto para o time de marketing copiar, editar e incorporar nas landing pages. Para usar, basta substituir três coisas:
+
+| O que substituir | Onde |
+|------------------|------|
+| `https://SEU-DOMINIO/keap/form-integration` | atributo `action` do `<form>` |
+| `NOME-DO-GOAL` | `value` do campo oculto `callname` |
+| `NOME-DA-INTEGRACAO` | `value` do campo oculto `integration` |
+| `https://seusite.com.br/obrigado` | `value` do campo oculto `url_sucesso` |
+
+Os campos visíveis (`inf_field_FirstName`, `inf_field_Email`, `inf_field_Phone1`) e os campos customizados de UTM (`inf_custom_*`) já estão pré-configurados. O script inline captura automaticamente os parâmetros UTM da URL e os injeta nos campos ocultos antes do envio.
+
 ## Referências
 
 - [Requisitos detalhados](docs/requisitos.md)
