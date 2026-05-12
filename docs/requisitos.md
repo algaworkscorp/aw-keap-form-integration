@@ -28,6 +28,15 @@ Content-Type: application/x-www-form-urlencoded
 | `callname`            | Call name do goal de automação a ser disparado             |
 | `integration`         | Nome da integração, passado no payload do achieve goal     |
 
+### Opcionais — Empresa e Cargo
+
+| Campo       | Descrição                             |
+|-------------|---------------------------------------|
+| `company`   | Nome da empresa do lead               |
+| `job_title` | Cargo do lead                         |
+
+Ambos os campos são opcionais. Se enviados em branco (ou contendo apenas espaços), são ignorados — o valor é descartado após `trim()` e não é enviado à API.
+
 ### Opcionais — Campos Customizados
 
 Qualquer campo prefixado com `customField_` é tratado como campo customizado do contato no Infusionsoft. O prefixo `customField_` é removido antes de enviar à API — somente a parte restante é usada como nome do campo.
@@ -135,6 +144,8 @@ Payload:
 {
   "given_name": "<primeira palavra de name>",
   "family_name": "<restante de name, se houver>",
+  "company": { "company_name": "<company, somente se não vazio após trim>" },
+  "job_title": "<job_title, somente se não vazio após trim>",
   "email_addresses": [
     { "email": "<email>", "field": "EMAIL1" }
   ],

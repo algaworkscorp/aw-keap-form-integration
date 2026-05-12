@@ -15,6 +15,8 @@ Comportamentos confirmados em produção que diferem ou complementam a documenta
   ```
 
 - **IDs de custom fields são numéricos**: o campo `id` em `custom_fields` deve ser o inteiro retornado por `GET /rest/v2/contacts/model`, não o nome do campo.
+
+- **Campo `company` em contatos é um objeto**, não uma string. O formato correto é `{ "company_name": "Nome da Empresa" }`. Enviar uma string diretamente resulta em HTTP 400 (`Cannot construct instance of BasicCompany from String value`). O campo interno do objeto é `company_name`, não `name`.
   ```json
   { "id": 7, "content": "valor" }
   ```

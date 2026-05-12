@@ -1,6 +1,8 @@
 export interface ContactPayload {
   given_name: string;
   family_name?: string;
+  company?: { company_name: string };
+  job_title?: string;
   email_addresses: { email: string; field: 'EMAIL1' }[];
   phone_numbers: { number: string; field: 'PHONE1' }[];
   custom_fields: { id: number; content: string }[];

@@ -33,6 +33,8 @@ export async function POST(request: Request) {
   const urlSucesso = (formData.get('success_url') as string | null)?.trim() ?? '';
   const callname = (formData.get('callname') as string | null)?.trim() ?? '';
   const integration = (formData.get('integration') as string | null)?.trim() ?? '';
+  const company = (formData.get('company') as string | null)?.trim() ?? '';
+  const jobTitle = (formData.get('job_title') as string | null)?.trim() ?? '';
 
   const phone = rawPhone.replace(/\D/g, '');
 
@@ -69,6 +71,8 @@ export async function POST(request: Request) {
     const contactPayload = {
       given_name: givenName,
       ...(familyName && { family_name: familyName }),
+      ...(company && { company: { company_name: company } }),
+      ...(jobTitle && { job_title: jobTitle }),
       email_addresses: [{ email: email, field: 'EMAIL1' as const }],
       phone_numbers: [{ number: phone, field: 'PHONE1' as const }],
       custom_fields: customFields,
