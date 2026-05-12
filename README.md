@@ -51,6 +51,15 @@ Content-Type: application/x-www-form-urlencoded
 | `callname`            | Call name do goal de automação a ser disparado                   |
 | `integration`         | Nome da integração, enviado no payload do achieve goal           |
 
+### Campos opcionais
+
+| Campo       | Descrição                                                              |
+|-------------|------------------------------------------------------------------------|
+| `company`   | Nome da empresa do lead                                                |
+| `job_title` | Cargo do lead                                                          |
+
+Se enviados em branco (ou só com espaços), são ignorados e não chegam à API.
+
 ### Campos customizados (opcionais)
 
 Qualquer campo prefixado com `customField_` é mapeado como campo customizado do contato. O prefixo é removido antes do envio à API.
@@ -150,7 +159,7 @@ O arquivo [`docs/exemplo-formulario.html`](docs/exemplo-formulario.html) é um t
 | `NOME-DA-INTEGRACAO` | `value` do campo oculto `integration` |
 | `https://seusite.com.br/obrigado` | `value` do campo oculto `success_url` |
 
-Os campos visíveis (`name`, `email`, `phone`) e os campos customizados de UTM (`customField_*`) já estão pré-configurados. O script inline captura automaticamente os parâmetros UTM da URL e os injeta nos campos ocultos antes do envio.
+Os campos visíveis (`name`, `email`, `phone`) e os campos opcionais (`company`, `job_title`) já estão pré-configurados, assim como os campos customizados de UTM (`customField_*`). O script inline captura automaticamente os parâmetros UTM da URL e os injeta nos campos ocultos antes do envio.
 
 ## Referências
 
